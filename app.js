@@ -15,7 +15,7 @@ const setNumber = e => {
     displayVal += e.target.textContent
   } else if (displayVal.includes(".") && e.target.textContent === ".") {
     return
-  } else if (displayVal.length > 13) {
+  } else if (displayVal.length > 14) {
     return
   } else {
     displayVal += e.target.textContent
@@ -42,8 +42,8 @@ const setFeat = e => {
       displayVal = displayVal
     } else if (display.textContent.slice(0, 1) === "-") {
       displayVal = displayVal.slice(1)
-    } else if (displayVal.length > 13) {
-      displayVal = "-" + displayVal.slice(0, 13)
+    } else if (displayVal.length > 14) {
+      displayVal = "-" + displayVal.slice(0, 14)
     } else {
       displayVal = "-" + displayVal;
     }
@@ -103,7 +103,7 @@ const operate = (e) => {
     display.textContent = "not a number"
   } else {
     if (result.toString().length > 14) {
-      result = Number(result.toString().slice(0, 14))
+      result = Number(result.toString().slice(0, 15))
     }
     const n = result.toString().length - result.toString().indexOf(".")
     display.textContent = (parseFloat(result.toFixed(n))).toString()

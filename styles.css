@@ -10,6 +10,7 @@ html {
 
 body {
   display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   justify-content: center;
@@ -95,4 +96,35 @@ main {
 
 .hit {
   background: rgb(206, 137, 10);
+}
+
+footer {
+  background: rgb(48, 48, 48);
+  width: 100%;
+  padding: 2rem;
+  color: #e5e7eb;
+  font-size: 1.5rem;
+  text-align: center;
+  justify-self: flex-end;
+  position: fixed;
+  bottom: 0;
+}
+
+footer a {
+  color: #3882f6;
+  font-size: 1.5rem;
+}
+
+footer a:first-of-type {
+  color: burlywood;
+  text-decoration: underline;
+}
+
+footer a:last-of-type {
+  font-style: italic;
+}
+
+button:active {
+  position: relative;
+  top: 1px;
 }
