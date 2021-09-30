@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Calculator Project</title>
+</head>
+
+<body>
+  <main>
+    <div class="display">0</div>
+
+    <div class="keys-container">
+      <div class="feats-and-nums">
+        <div class="feats">
+          <button class="btn feat">AC</button>
+          <button class="btn feat">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#fff">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21v-2z" />
+            </svg>
+          </button>
+          <button class="btn feat">+/-</button>
+        </div>
+        <div class="numbers">
+          <button class="btn digit">9</button>
+          <button class="btn digit">8</button>
+          <button class="btn digit">7</button>
+          <button class="btn digit">6</button>
+          <button class="btn digit">5</button>
+          <button class="btn digit">4</button>
+          <button class="btn digit">3</button>
+          <button class="btn digit">2</button>
+          <button class="btn digit">1</button>
+          <button class="btn digit">.</button>
+          <button class="btn digit lg">0</button>
+        </div>
+      </div>
+      <div class="operations">
+        <button value="/" class="btn operator">÷</button>
+        <button value="*" class="btn operator">x</button>
+        <button value="-" class="btn operator">-</button>
+        <button value="+" class="btn operator">+</button>
+        <button value="=" class="btn equal">=</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+
+</html>

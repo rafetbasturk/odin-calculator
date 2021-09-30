@@ -1,0 +1,98 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  background: rgb(36, 36, 36);
+  padding: 1rem;
+  border-radius: 1.2rem;
+}
+
+.display {
+  text-align: right;
+  padding: 1rem;
+  font-size: 3.6rem;
+  color: white;
+  border: 2px inset rgb(100, 100, 100);
+  border-radius: 1.2rem;
+}
+
+.keys-container{
+  display: flex;
+  gap: .5rem;
+}
+
+.feats-and-nums {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.feats {
+  display: flex;
+  gap: .5rem;
+}
+
+.feat {
+  background: rgb(100, 100, 100);
+  color: white;
+}
+
+.btn {
+  flex: 1 0 50px;
+  height: 50px;
+  border-radius: 1.2rem;
+  border: 2px solid transparent;
+  font-size: 2rem;
+}
+
+.numbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.lg {
+  flex: 2 0 100px;
+}
+
+.digit {
+  flex-direction: row-reverse;
+}
+
+.operations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  flex: 1;
+}
+
+.operator, .equal {
+  background: rgb(228, 167, 53);
+  color: rgb(48, 48, 48);
+}
+
+.hit {
+  background: rgb(206, 137, 10);
+}
