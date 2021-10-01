@@ -7,47 +7,53 @@ let firstNum, secondNum, operator, result
 let displayVal = "0"
 let isClicked = false
 
-const setNumber = e => {
-  if (displayVal == "0" && e.target.textContent === ".") {
-    displayVal += e.target.textContent
-  } else if (displayVal == "0") {
+const displayNum = val => {
+  if (displayVal == "0" && val === ".") {
+    displayVal += val
+  }
+  else if (displayVal == "0") {
     displayVal = ""
-    displayVal += e.target.textContent
-  } else if (displayVal.includes(".") && e.target.textContent === ".") {
+    displayVal += val
+  }
+  else if (displayVal.includes(".") && val === ".") {
     return
-  } else if (displayVal.length > 14) {
+  }
+  else if (displayVal.length > 11) {
     return
-  } else {
-    displayVal += e.target.textContent
+  }
+  else {
+    displayVal += val
   }
   display.textContent = displayVal
 }
 
-const setFeat = e => {
-  if (e.target.innerText !== "") {
+const setFeat = val => {
+  if (val === "AC" || val === "c") {
     operators.forEach(op => {
       op.classList.remove("hit")
     })
   }
 
-  if (e.target.textContent === "AC") {
+  if (val === "AC" || val === "c") {
     operator = ""
     firstNum = ""
     secondNum = ""
     result = ""
     isClicked = false
     displayVal = "0"
-  } else if (e.target.textContent === "+/-") {
+  }
+  else if (val === "+/-" || val === "m") {
     if (displayVal == "0" || displayVal == "0.") {
       displayVal = displayVal
     } else if (display.textContent.slice(0, 1) === "-") {
       displayVal = displayVal.slice(1)
-    } else if (displayVal.length > 14) {
-      displayVal = "-" + displayVal.slice(0, 14)
+    } else if (displayVal.length > 11) {
+      displayVal = "-" + displayVal.slice(0, 12)
     } else {
       displayVal = "-" + displayVal;
     }
-  } else {
+  }
+  else {
     displayVal = displayVal.slice(0, -1)
     displayVal === "" || displayVal === "-" ? displayVal = "0" : null
   }
@@ -55,18 +61,50 @@ const setFeat = e => {
   display.textContent = displayVal
 }
 
+const setDigitBtns = e => {
+  displayNum(e.target.textContent)
+}
+
+const setFeatBtns = e => {
+  setFeat(e.target.textContent)
+}
+
+const setKeyboardBtns = e => {
+  e.key >= 0 && e.key <= 9 || e.key === "." ? displayNum(e.key)
+    : e.key === "Backspace" || e.key === "c" || e.key === "m" ? setFeat(e.key)
+    : e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*" ? setFirstNumAndSign(e)
+    : e.key === "=" || e.key === "Enter" ? operate(e)
+    : null
+}
+
 const setFirstNumAndSign = (e) => {
   operators.forEach(op => {
     op.classList.remove("hit")
-    e.target.classList.add("hit")
+    if (e.key) {
+      op.value === e.key ? op.classList.add("hit") : null
+    }
+    else {
+      e.target.classList.add("hit")
+    }
   })
 
   if (isClicked) {
     operate(e)
-    operator = e.target.value
+    if (e.key) {
+      operator = e.key
+    }
+    else {
+      operator = e.target.value
+    }
     firstNum = result
-  } else {
-    operator = e.target.value
+  }
+  else {
+    if (e.key) {
+      operator = e.key
+    }
+    else {
+      operator = e.target.value
+    }
     firstNum = parseFloat(displayVal)
   }
 
@@ -74,12 +112,12 @@ const setFirstNumAndSign = (e) => {
   displayVal = "0"
 }
 
-const operate = (e) => {
-  if (!firstNum) {
+const operate = e => {
+  if (!firstNum || !operator) {
     return
   }
 
-  if (e.target.textContent === "=") {
+  if (e.target.textContent === "=" || e.key === "=" || e.key === "Enter") {
     operators.forEach(op => {
       op.classList.remove("hit")
     })
@@ -91,32 +129,37 @@ const operate = (e) => {
 
   if (operator === "+") {
     result = firstNum + secondNum
-  } else if (operator === "-") {
+  }
+  else if (operator === "-") {
     result = firstNum - secondNum
-  } else if (operator === "*") {
+  }
+  else if (operator === "*") {
     result = firstNum * secondNum
-  } else {
+  }
+  else {
     result = firstNum / secondNum
   }
 
   if (isNaN(result)) {
     display.textContent = "not a number"
-  } else {
-    if (result.toString().length > 14) {
-      result = Number(result.toString().slice(0, 15))
+  }
+  else {
+    if (result.toString().length > 11) {
+      result = Number(result.toString().slice(0, 12))
     }
     const n = result.toString().length - result.toString().indexOf(".")
-    display.textContent = (parseFloat(result.toFixed(n))).toString()
+    display.textContent = parseFloat(result.toFixed(n))
   }
 
   firstNum = result
-  secondNum = ""
+  secondNum = 0
   operator = ""
   isClicked = false
   displayVal = "0"
 }
 
-digits.forEach(digit => digit.addEventListener("click", setNumber))
-feats.forEach(feat => feat.addEventListener("click", setFeat))
+digits.forEach(digit => digit.addEventListener("click", setDigitBtns))
+feats.forEach(feat => feat.addEventListener("click", setFeatBtns))
 operators.forEach(op => op.addEventListener("click", setFirstNumAndSign))
 equal.addEventListener("click", operate)
+window.addEventListener("keydown", setKeyboardBtns)

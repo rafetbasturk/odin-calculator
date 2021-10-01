@@ -11,10 +11,12 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  gap: 2rem;
   width: 100vw;
   height: 100vh;
   justify-content: center;
   align-items: center;
+  font-family: 'Gemunu Libre', sans-serif;
   font-size: 1.8rem;
 }
 
@@ -28,9 +30,14 @@ main {
 }
 
 .display {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   text-align: right;
+  min-width: 300px;
+  height: 65px;
   padding: 1rem;
-  font-size: 3.6rem;
+  font-size: 4rem;
   color: white;
   border: 2px inset rgb(100, 100, 100);
   border-radius: 1.2rem;
@@ -58,11 +65,15 @@ main {
 }
 
 .btn {
+  display:flex;
+  justify-content: center;
+  align-items: center;
   flex: 1 0 50px;
   height: 50px;
   border-radius: 1.2rem;
   border: 2px solid transparent;
-  font-size: 2rem;
+  font-size: 2.2rem;
+  font-family: 'Gemunu Libre', sans-serif;
 }
 
 .numbers {
@@ -95,7 +106,19 @@ main {
 }
 
 .hit {
-  background: rgb(206, 137, 10);
+  background: rgb(175, 118, 11);
+}
+
+section {
+  background: lightcyan;
+  padding: 1.2rem;
+  border-radius: 1.2rem;
+}
+
+span {
+  color: crimson;
+  display: inline-block;
+  width: 100px;
 }
 
 footer {
@@ -111,13 +134,13 @@ footer {
 }
 
 footer a {
-  color: #3882f6;
+  color: #8ed2ff;
   font-size: 1.5rem;
+  text-decoration: none;
 }
 
 footer a:first-of-type {
-  color: burlywood;
-  text-decoration: underline;
+  color: rgb(228, 167, 53);
 }
 
 footer a:last-of-type {
