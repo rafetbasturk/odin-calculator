@@ -3,28 +3,33 @@ const digits = document.querySelectorAll(".digit")
 const feats = document.querySelectorAll(".feat")
 const operators = document.querySelectorAll(".operator")
 const equal = document.querySelector(".equal")
-let firstNum, secondNum, operator, result
-let displayVal = "0"
-let isClicked = false
+const calculator = {
+  firstNum: 0,
+  secondNum: 0,
+  operator: "",
+  result: 0,
+  displayVal: "0",
+  isClicked: false
+}
 
 const displayNum = val => {
-  if (displayVal == "0" && val === ".") {
-    displayVal += val
+  if (calculator.displayVal == "0" && val === ".") {
+    calculator.displayVal += val
   }
-  else if (displayVal == "0") {
-    displayVal = ""
-    displayVal += val
+  else if (calculator.displayVal == "0") {
+    calculator.displayVal = ""
+    calculator.displayVal += val
   }
-  else if (displayVal.includes(".") && val === ".") {
+  else if (calculator.displayVal.includes(".") && val === ".") {
     return
   }
-  else if (displayVal.length > 11) {
+  else if (calculator.displayVal.length > 11) {
     return
   }
   else {
-    displayVal += val
+    calculator.displayVal += val
   }
-  display.textContent = displayVal
+  display.textContent = calculator.displayVal
 }
 
 const setFeat = val => {
@@ -35,30 +40,30 @@ const setFeat = val => {
   }
 
   if (val === "AC" || val === "c") {
-    operator = ""
-    firstNum = ""
-    secondNum = ""
-    result = ""
-    isClicked = false
-    displayVal = "0"
+    calculator.operator = ""
+    calculator.firstNum = ""
+    calculator.secondNum = ""
+    calculator.result = ""
+    calculator.isClicked = false
+    calculator.displayVal = "0"
   }
   else if (val === "+/-" || val === "m") {
-    if (displayVal == "0" || displayVal == "0.") {
-      displayVal = displayVal
+    if (calculator.displayVal == "0" || calculator.displayVal == "0.") {
+      return
     } else if (display.textContent.slice(0, 1) === "-") {
-      displayVal = displayVal.slice(1)
-    } else if (displayVal.length > 11) {
-      displayVal = "-" + displayVal.slice(0, 12)
+      calculator.displayVal = calculator.displayVal.slice(1)
+    } else if (calculator.displayVal.length > 11) {
+      calculator.displayVal = "-" + calculator.displayVal.slice(0, 12)
     } else {
-      displayVal = "-" + displayVal;
+      calculator.displayVal = "-" + calculator.displayVal;
     }
   }
   else {
-    displayVal = displayVal.slice(0, -1)
-    displayVal === "" || displayVal === "-" ? displayVal = "0" : null
+    calculator.displayVal = calculator.displayVal.slice(0, -1)
+    calculator.displayVal === "" || calculator.displayVal === "-" ? calculator.displayVal = "0" : null
   }
 
-  display.textContent = displayVal
+  display.textContent = calculator.displayVal
 }
 
 const setDigitBtns = e => {
@@ -73,7 +78,7 @@ const setKeyboardBtns = e => {
   e.key >= 0 && e.key <= 9 || e.key === "." ? displayNum(e.key)
     : e.key === "Backspace" || e.key === "c" || e.key === "m" ? setFeat(e.key)
     : e.key === "+" || e.key === "-" || e.key === "/" || e.key === "*" ? setFirstNumAndSign(e)
-    : e.key === "=" || e.key === "Enter" ? operate(e)
+    : e.key === "=" ? operate(e)
     : null
 }
 
@@ -88,74 +93,75 @@ const setFirstNumAndSign = (e) => {
     }
   })
 
-  if (isClicked) {
+  if (calculator.isClicked) {
     operate(e)
     if (e.key) {
-      operator = e.key
+      calculator.operator = e.key
     }
     else {
-      operator = e.target.value
+      calculator.operator = e.target.value
     }
-    firstNum = result
+    calculator.firstNum = calculator.result
   }
   else {
     if (e.key) {
-      operator = e.key
+      calculator.operator = e.key
     }
     else {
-      operator = e.target.value
+      calculator.operator = e.target.value
     }
-    firstNum = parseFloat(displayVal)
+    calculator.firstNum = parseFloat(calculator.displayVal)
   }
 
-  isClicked = true
-  displayVal = "0"
+  calculator.isClicked = true
+  calculator.displayVal = "0"
 }
 
 const operate = e => {
-  if (!firstNum || !operator) {
+  console.log(e.key);
+  if (!calculator.firstNum || !calculator.operator) {
     return
   }
 
-  if (e.target.textContent === "=" || e.key === "=" || e.key === "Enter") {
+  if (e.target.textContent === "=" || e.key === "=") {
     operators.forEach(op => {
       op.classList.remove("hit")
     })
   }
 
-  if (isClicked) {
-    secondNum = parseFloat(displayVal)
+  if (calculator.isClicked) {
+    calculator.secondNum = parseFloat(calculator.displayVal)
   }
 
-  if (operator === "+") {
-    result = firstNum + secondNum
+  if (calculator.operator === "+") {
+    calculator.result = calculator.firstNum + calculator.secondNum
   }
-  else if (operator === "-") {
-    result = firstNum - secondNum
+  else if (calculator.operator === "-") {
+    calculator.result = calculator.firstNum - calculator.secondNum
   }
-  else if (operator === "*") {
-    result = firstNum * secondNum
+  else if (calculator.operator === "*") {
+    calculator.result = calculator.firstNum * calculator.secondNum
   }
   else {
-    result = firstNum / secondNum
+    calculator.result = calculator.firstNum / calculator.secondNum
   }
 
-  if (isNaN(result)) {
+  if (isNaN(calculator.result)) {
     display.textContent = "not a number"
   }
   else {
-    if (result.toString().length > 11) {
-      result = Number(result.toString().slice(0, 12))
+    if (calculator.result.toString().length > 11) {
+      calculator.result = Number(result.toString().slice(0, 12))
     }
-    const n = result.toString().length - result.toString().indexOf(".")
-    display.textContent = parseFloat(result.toFixed(n))
+    const n = calculator.result.toString().length - calculator.result.toString().indexOf(".")
+    display.textContent = parseFloat(calculator.result.toFixed(n))
   }
 
-  firstNum = result
-  secondNum = 0
-  operator = ""
-  isClicked = false
-  displayVal = "0"
+  calculator.firstNum = calculator.result
+  calculator.secondNum = 0
+  calculator.operator = ""
+  calculator.isClicked = false
+  calculator.displayVal = "0"
 }
 
 digits.forEach(digit => digit.addEventListener("click", setDigitBtns))
